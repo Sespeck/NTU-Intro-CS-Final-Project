@@ -557,7 +557,6 @@ while True:
         elif (cdep ==0 and s_dep == 1) or (cdep == 1 and s_dep == 0 ):
                print(" Sorry! The attack centering area" ,hrow1,hcol1,hdep, "was a total miss" )
 
-        user_board()
     
     #%%
     # code for check coordinates
