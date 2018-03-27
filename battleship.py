@@ -557,34 +557,33 @@ while True:
         elif (cdep ==0 and s_dep == 1) or (cdep == 1 and s_dep == 0 ):
                print(" Sorry! The attack centering area" ,hrow1,hcol1,hdep, "was a total miss" )
 
-        user_board()
     
-    #%%
-    # code for check coordinates
+#%%
+     #code for check coordinates
     
-#            ## Don't delete ##
+            ## Don't delete ##
     
-#    # 1 user vessels
-#    print('\n','user vessels')
-#    print('sur_sub_coor: ',sur_sub_coor)
-#    print('und_sub_coor: ',und_sub_coor)
-#    print('des_coor: ',des_coor,'\n') 
-#    
-#    # 2 
-#    print('computer vessels')
-#    print('com_sur_sub_coor: ',com_sur_sub_coor)
-#    print('com_und_sub_coor: ',com_und_sub_coor)
-#    print('com_des_coor: ',com_des_coor,'\n') 
-#    
-#    # 3
-#    print('user hit coordinates')
-#    print('sur_hit_coor: ',sur_hit_coor)
-#    print('und_hit_coor: ',und_hit_coor,'\n')
-#    
-#    # 4
-#    print('computer hit coordinates')
-#    print('com_sur_hit_coor: ',com_sur_hit_coor)
-#    print('com_und_hit_coor: ',com_und_hit_coor,'\n')
+    # 1 user vessels
+    print('\n','user vessels')
+    print('sur_sub_coor: ',sur_sub_coor)
+    print('und_sub_coor: ',und_sub_coor)
+    print('des_coor: ',des_coor,'\n') 
+    
+    # 2 
+    print('computer vessels')
+    print('com_sur_sub_coor: ',com_sur_sub_coor)
+    print('com_und_sub_coor: ',com_und_sub_coor)
+    print('com_des_coor: ',com_des_coor,'\n') 
+    
+    # 3
+    print('user hit coordinates')
+    print('sur_hit_coor: ',sur_hit_coor)
+    print('und_hit_coor: ',und_hit_coor,'\n')
+    
+    # 4
+    print('computer hit coordinates')
+    print('com_sur_hit_coor: ',com_sur_hit_coor)
+    print('com_und_hit_coor: ',com_und_hit_coor,'\n')
     
     #%% 
         
