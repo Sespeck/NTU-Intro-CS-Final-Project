@@ -24,7 +24,9 @@ while True:
             user_und_board.append([str(i)," ","   |","   |","   |","   |","   |","   |","   |","   |",])    
         
     def computer_board(): #Print our the board using list variables defined.
-        print('Surface')
+        print('The computer\'s board looks like this')
+        print('   1   2   3   4   5   6   7   8 ')
+        print('Surface')        
         for row in com_sur_board:
             print("".join(row))
             print("   -------------------------------")
@@ -33,6 +35,8 @@ while True:
             print("".join(row))
             print("   -------------------------------")
     def user_board():
+        print('The user\'s board looks like this')
+        print('   1   2   3   4   5   6   7   8 ')
         print('Surface')
         for row in user_sur_board:
             print("".join(row))
@@ -64,37 +68,47 @@ while True:
     
             
            
-            if srow <7 and scol <7:
-                if orientation == 'h' and sdepth == 1:
-                    for x in range(srow,srow+1):
-                        for y in range(scol,(scol+3)):
-                            user_sur_board[x-1][y+1] = ' S |'
-                            sur_sub_coor.append([x,y])
-                elif orientation == 'h' and sdepth == 0:
-                    for x in range(srow,srow+1):
-                        for y in range(scol,(scol+3)):
-                            user_und_board[x-1][y+1] = ' S |'
-                            und_sub_coor.append([x,y])
-                elif orientation == 'v' and sdepth == 1:
-                    for x in range(srow,srow+3):
-                        for y in range(scol,scol+1):
-                            user_sur_board[x-1][y+1] = ' S |'
-                            sur_sub_coor.append([x,y])
-                elif orientation == 'v' and sdepth == 0:
-                    for x in range(srow,srow+3):
-                        for y in range(scol,scol+1):
-                            user_und_board[x-1][y+1] = ' S |'
-                            und_sub_coor.append([x,y])
-            else:  
-                print('Cannot place a ship there. \nPlease take a look at the board and try again. \nHit ENTER to continue')
+            if not srow <9 and scol <9:
+                print('Cannot place a ship thereee. \nPlease take a look at the board and try again.')
+                input('Press Eenter to continue')
                 continue
-            if not srow <7 and scol <7:
-                print('Cannot place a ship there. \nPlease take a look at the board and try again. \nHit ENTER to continue')
-                continue
-            
-            else:
-                
-                break
+        
+            if orientation =='h':
+                if scol<7:
+                    if sdepth ==1:
+                        for x in range(srow,srow+1):
+                            for y in range(scol,(scol+3)):
+                                user_sur_board[x-1][y+1] = ' S |'
+                                sur_sub_coor.append([x,y])
+                    if sdepth ==0:
+                        for x in range(srow,srow+1):
+                            for y in range(scol,(scol+3)):
+                                user_und_board[x-1][y+1] = ' S |'
+                                sur_sub_coor.append([x,y])
+                else: 
+                    print('Cannot place a ship thereee. \nPlease take a look at the board and try again.')
+                    input('Press Eenter to continue')
+                    continue
+
+            if orientation == 'v':
+                if srow<7:
+                    if sdepth ==1:
+                        for x in range(srow,srow+3):
+                            for y in range(scol,scol+1):
+                                user_sur_board[x-1][y+1] = ' S |'
+                                sur_sub_coor.append([x,y])
+                    if sdepth ==0:
+                        for x in range(srow,srow+3):
+                            for y in range(scol,scol+1):
+                                user_und_board[x-1][y+1] = ' S |'
+                                und_sub_coor.append([x,y])
+                else:  
+                    print('Cannot place a ship thereee. \nPlease take a look at the board and try again.')
+                    input('Press Enter to continue')
+                    continue
+
+            break
+           
     
         print(sur_sub_coor) # Do we need to print coodinates here?
         print(und_sub_coor)
@@ -118,22 +132,31 @@ while True:
             global des_coor 
             des_coor = []
             
-            if drow <7 and dcol <7 and ddepth ==1:
-                if orientation == 'h':
-                    for x in range(drow,drow+1):
-                        for y in range(dcol,(dcol+3)):
-                            des_coor.append([x,y])    
-                        
-                if orientation == 'v' :
-                    for x in range(drow,drow+3):
-                        for y in range(dcol,dcol+1):
-                            des_coor.append([x,y])
-                print(des_coor)
+            if ddepth ==1:
+                if drow<7 and dcol<9:
+                    if orientation == 'v':
+                        for x in range(drow,drow+3):
+                            for y in range(dcol,dcol+1):
+                                des_coor.append([x,y])
+                    else: 
+                        print('Cannot place a destroyer there. \nPlease take a look at the board and try again')
+                        input('Press Enter to continue')
+                        continue
+                elif drow<9 and dcol<7:
+                    if orientation == 'h':
+                        for x in range(drow,drow+1):
+                            for y in range(dcol,(dcol+3)):                                
+                                des_coor.append([x,y])
+                    else: 
+                        print('Cannot place a destroyer there. \nPlease take a look at the board and try again')
+                        input('Press Enter to continue')
+                        continue
             else:
-                print('Cannot place a destroyer there.')
+                print('Cannot place a destroyer there. \nPlease take a look at the board and try again')
+                input('Press Enter to continue')
                 continue
             
-            if not (any(x in des_coor for x in sur_sub_coor) == False) and (drow < 7 and dcol <7) and ddepth ==0:
+            if not (any(x in des_coor for x in sur_sub_coor) == False):
                 print('Cannot place a destroyer there. \nPlease take a look at the board and try again. \nHit ENTER to continue')
                 continue
             
@@ -162,11 +185,7 @@ while True:
     #after user placed the ship, it's computer's turn
     
      
-    def com_place_sub():
-        
-        print('Computer is placing a/an submarine')
-        cs_row, cs_col, cs_depth =random.randint(1,6), random.randint(1,6), 0
-        orientation1 = random.choice(['v','h'])
+    def com_place_sub():             
         global com_sur_sub_coor
         global com_und_sub_coor
         global cdep
@@ -174,24 +193,29 @@ while True:
         cdep = cs_depth
         com_sur_sub_coor = [] #computer surface submarine coordinates
         com_und_sub_coor = [] #computer underwater submarine coordinates
-    
-        if orientation1 == 'h' and cs_depth == 1:
-            for x in range(cs_row,cs_row+1):
-                for y in range(cs_col,(cs_col+3)):            
-                    com_sur_sub_coor.append([x,y])
-        elif orientation1 == 'h' and cs_depth == 0:
-            for x in range(cs_row,cs_row+1):
-                for y in range(cs_col,(cs_col+3)):
-                    com_und_sub_coor.append([x,y])
-        elif orientation1 == 'v' and cs_depth == 1:
-            for x in range(cs_row,cs_row+3):
-                for y in range(cs_col,cs_col+1):
-                            
-                    com_sur_sub_coor.append([x,y])
-        elif orientation1 == 'v' and cs_depth == 0:
-            for x in range(cs_row,cs_row+3):
-                for y in range(cs_col,cs_col+1):            
-                    com_und_sub_coor.append([x,y])
+        
+        print('Computer is placing a/an submarine')      
+        orientation1 = random.choice(['v','h'])    
+        if orientation1 == 'h':
+            cs_row, cs_col, cs_depth =random.randint(1,8), random.randint(1,6), random.randint(0,1)
+            if cs_depth == 1:
+                for x in range(cs_row,cs_row+1):
+                    for y in range(cs_col,(cs_col+3)):            
+                        com_sur_sub_coor.append([x,y])
+            elif cs_depth == 0:
+                for x in range(cs_row,cs_row+1):
+                    for y in range(cs_col,(cs_col+3)):
+                        com_und_sub_coor.append([x,y])
+        elif orientation1 == 'v':
+            cs_row, cs_col, cs_depth =random.randint(1,6), random.randint(1,8), random.randint(0,1)
+            if cs_depth == 1:
+                for x in range(cs_row,cs_row+3):
+                    for y in range(cs_col,cs_col+1):                            
+                        com_sur_sub_coor.append([x,y])
+            elif cs_depth == 0:
+                for x in range(cs_row,cs_row+3):
+                    for y in range(cs_col,cs_col+1):            
+                        com_und_sub_coor.append([x,y])
         print(com_und_sub_coor)
         cusub = com_und_sub_coor
         print(com_sur_sub_coor)
@@ -203,9 +227,8 @@ while True:
     
     def com_place_des(): #place the destroyer for computer
         while True:
-            print('Computer is placing a/an destroyer')
-            cd_row, cd_col, cd_depth = random.randint(1,6), random.randint(1,6), 1 #computer can place destroyer only on the surface
-            orientation2 = random.choice(['v','h'])
+            print('Computer is placing a/an destroyer')            
+            orientation2 = random.choice(['v','h'])                    
             global cddepth1
             cddepth1=cd_depth
             
@@ -213,11 +236,13 @@ while True:
             com_des_coor = []
             
             if orientation2 == 'h':
+                cs_row, cs_col, cs_depth =random.randint(1,8), random.randint(1,6), 1 #can only place destroyer on the surface
                 for x in range(cd_row,cd_row+1):
                     for y in range(cd_col,(cd_col+3)):
                         com_des_coor.append([x,y])    
                         
             if orientation2 == 'v' :
+                cs_row, cs_col, cs_depth =random.randint(1,6), random.randint(1,8), 1 #can only place destroyer on the surface
                 for x in range(cd_row,cd_row+3):
                     for y in range(cd_col,cd_col+1):
                         com_des_coor.append([x,y])
@@ -272,96 +297,102 @@ while True:
         sur_hit_coor = [] #surface ships hith
         und_hit_coor = [] #und ships hit
         if hdepth == 1:
-            if hrow ==1 and hcol == 1: #corner
-                for x in range(0, 2):
-                    for y in range(2,4):
-                        com_sur_board[x][y] = ' * |'
-                        sur_hit_coor.append([x+1,y-1])
+            if hrow ==1:
+                if hcol == 1: #corner
+                    for x in range(0, 2):
+                        for y in range(2,4):
+                            com_sur_board[x][y] = ' * |'
+                            sur_hit_coor.append([x+1,y-1])
                         
-            elif hrow == 1 and hcol == 8: #corner
-                for x in range(0,2):
-                    for y in range(8,10): 
-                        com_sur_board[x][y] = ' * |'
-                        sur_hit_coor.append([x+1,y-1])
-            elif hrow == 8 and hcol == 1: #corner
-                for x in range(6,8):
-                    for y in range(2,4):
-                        com_sur_board[x][y] = ' * |'
-                        sur_hit_coor.append([x+1,y-1])    
-            elif hrow == 8 and hcol == 8: #corner
-                for x in range(6,8):
-                    for y in range(8,10):
-                        com_sur_board[x][y] = ' * |'
-                        sur_hit_coor.append([x+1,y-1])
-            elif (hrow == 8) and (hcol in range(2,7)):
-                for x in range(hrow -2, hrow):
-                    for y in range(hcol, hcol+3):
-                        com_sur_board[x][y] = ' * |'
-                        sur_hit_coor.append([x+1,y-1])
-            elif (hrow ==1) and (hcol in range(2,7)):
-                for x in range(hrow - 1, hrow +1 ):
-                    for y in range(hcol, hcol+3):
-                        com_sur_board[x][y] = ' * |'
-                        sur_hit_coor.append([x+1,y-1])
-            elif (hcol == 1) and (hrow in range(1,7)):
+                elif hcol == 8: #corner
+                    for x in range(0,2):
+                        for y in range(8,10): 
+                            com_sur_board[x][y] = ' * |'
+                            sur_hit_coor.append([x+1,y-1])
+                elif hcol in range(2,8): #on the upper row edges but not corner
+                    for x in range(hrow - 1, hrow +1 ):
+                        for y in range(hcol, hcol+3):
+                            com_sur_board[x][y] = ' * |'
+                            sur_hit_coor.append([x+1,y-1])
+                
+            elif hrow == 8:
+                if hcol == 1: #corner
+                    for x in range(6,8):
+                        for y in range(2,4):
+                            com_sur_board[x][y] = ' * |'
+                            sur_hit_coor.append([x+1,y-1])    
+                elif hcol == 8: #corner
+                    for x in range(6,8):
+                        for y in range(8,10):
+                            com_sur_board[x][y] = ' * |'
+                            sur_hit_coor.append([x+1,y-1])
+                elif hcol in range(2,8)): #on the lower row edges but not corner
+                    for x in range(hrow -2, hrow):
+                        for y in range(hcol, hcol+3):
+                            com_sur_board[x][y] = ' * |'
+                            sur_hit_coor.append([x+1,y-1])
+            
+            elif (hcol == 1) and (hrow in range(2,8)): #on the left column edges but not corner
                 for x in range(hrow-2, hrow+1):
                     for y in range(2,4):
                         com_sur_board[x][y] = ' * |'
                         sur_hit_coor.append([x+1,y-1])
-            elif (hcol == 8) and (hrow in range(1,7)):
+            elif (hcol == 8) and (hrow in range(2,8)): #on the right col edges but not corner
                 for x in range(hrow-2, hrow+1):
                     for y in range(8,10):
                         com_sur_board[x][y] = ' * |'
                         sur_hit_coor.append([x+1,y-1])
             else:
-                for x in range(hrow -2, hrow+1):
+                for x in range(hrow -2, hrow+1): #other normal ones
                     for y in range(hcol, hcol+3):
                         com_sur_board[x][y] = ' * |'
                         sur_hit_coor.append([x+1,y-1])
         if hdepth == 0:
-            if hrow ==1 and hcol == 1:
-                for x in range(0, 2):
-                    for y in range(2,4):
-                        com_und_board[x][y] = ' * |'
-                        und_hit_coor.append([x+1,y-1])
+            if hrow ==1:
+                if hcol == 1: #corner
+                    for x in range(0, 2):
+                        for y in range(2,4):
+                            com_und_board[x][y] = ' * |'
+                            und_hit_coor.append([x+1,y-1])
                         
-            elif hrow == 1 and hcol == 8:
-                for x in range(0,2):
-                    for y in range(8,10):
-                        com_und_board[x][y] = ' * |'
-                        und_hit_coor.append([x+1,y-1])
-            elif hrow == 8 and hcol == 1:
-                for x in range(6,8):
-                    for y in range(2,4):
-                        com_und_board[x][y] = ' * |'
-                        und_hit_coor.append([x+1,y-1])    
-            elif hrow == 8 and hcol == 8:
-                for x in range(6,8):
-                    for y in range(8,10):
-                        com_und_board[x][y] = ' * |'
-                        und_hit_coor.append([x+1,y-1])
-            elif (hrow ==1) and (hcol in range(2,7)):
-                for x in range(hrow - 1, hrow +1 ):
-                    for y in range(hcol, hcol+3):
-                        com_sur_board[x][y] = ' * |'
-                        sur_hit_coor.append([x+1,y-1])
-            elif (hrow == 8) and (hcol in range(2,7)):
-                for x in range(hrow -2, hrow):
-                    for y in range(hcol, hcol+3):
-                        com_und_board[x][y] = ' * |'
-                        und_hit_coor.append([x+1,y-1])
-            elif (hcol == 1) and (hrow in range(1,7)):
+                elif hcol == 8: #corner
+                    for x in range(0,2):
+                        for y in range(8,10):
+                            com_und_board[x][y] = ' * |'
+                            und_hit_coor.append([x+1,y-1])
+                elif hcol in range(2,8)): # upper edge
+                    for x in range(hrow - 1, hrow +1 ):
+                        for y in range(hcol, hcol+3):
+                            com_sur_board[x][y] = ' * |'
+                            sur_hit_coor.append([x+1,y-1])
+            elif hrow == 8:
+                if hcol == 1: #corner
+                    for x in range(6,8):
+                        for y in range(2,4):
+                            com_und_board[x][y] = ' * |'
+                            und_hit_coor.append([x+1,y-1])    
+                elif hcol == 8: #corner
+                    for x in range(6,8):
+                        for y in range(8,10):
+                            com_und_board[x][y] = ' * |'
+                            und_hit_coor.append([x+1,y-1])           
+                elif hcol in range(2,8)): #lower edge
+                    for x in range(hrow -2, hrow):
+                        for y in range(hcol, hcol+3):
+                            com_und_board[x][y] = ' * |'
+                            und_hit_coor.append([x+1,y-1])
+            elif (hcol == 1) and (hrow in range(1,7)): #left edge
                 for x in range(hrow-2, hrow+1):
                     for y in range(2,4):
                         com_und_board[x][y] = ' * |'
                         und_hit_coor.append([x+1,y-1])
-            elif (hcol == 8) and (hrow in range(1,7)):
+            elif (hcol == 8) and (hrow in range(1,7)): #right edge
                 for x in range(hrow-2, hrow+1):
                     for y in range(8,10):
                         com_und_board[x][y] = ' * |'
                         und_hit_coor.append([x+1,y-1])
             else:
-                for x in range(hrow-2, hrow+1):
+                for x in range(hrow-2, hrow+1): #normal
                     for y in range(hcol, hcol+3):
                         com_und_board[x][y] = ' * |'
                         und_hit_coor.append([x+1,y-1])
