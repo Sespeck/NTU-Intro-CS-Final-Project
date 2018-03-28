@@ -69,8 +69,8 @@ while True:
             
            
             if not srow <9 and scol <9:
-                print('Cannot place a ship thereee. \nPlease take a look at the board and try again.')
-                input('Press Eenter to continue')
+                print('Cannot place a ship there. \nPlease take a look at the board and try again.')
+                input('Press Enter to continue')
                 continue
         
             if orientation =='h':
@@ -86,18 +86,18 @@ while True:
                                 user_und_board[x-1][y+1] = ' S |'
                                 sur_sub_coor.append([x,y])
                 else: 
-                    print('Cannot place a ship thereee. \nPlease take a look at the board and try again.')
-                    input('Press Eenter to continue')
+                    print('Cannot place a ship there. \nPlease take a look at the board and try again.')
+                    input('Press Enter to continue')
                     continue
 
             if orientation == 'v':
                 if srow<7:
-                    if sdepth ==1:
+                    if sdepth == 1:
                         for x in range(srow,srow+3):
                             for y in range(scol,scol+1):
                                 user_sur_board[x-1][y+1] = ' S |'
                                 sur_sub_coor.append([x,y])
-                    if sdepth ==0:
+                    if sdepth == 0:
                         for x in range(srow,srow+3):
                             for y in range(scol,scol+1):
                                 user_und_board[x-1][y+1] = ' S |'
@@ -110,8 +110,8 @@ while True:
             break
            
     
-        print(sur_sub_coor) # Do we need to print coodinates here?
-        print(und_sub_coor)
+        #print(sur_sub_coor) # Do we need to print coodinates here?
+        #print(und_sub_coor)
     
     
     # In[7]:
@@ -164,17 +164,15 @@ while True:
             else:
               
                 break
-        #after checking that it's valid
+        #after checking that the coordinates are valid we print the destroyers on the board
         if orientation == 'h':
             for x in range(drow,drow+1):
-                for y in range(dcol,(dcol+3)):
-    
+                for y in range(dcol,(dcol+3)):    
                     user_sur_board[x-1][y+1] = ' D |'
     
         elif orientation == 'v' :
             for x in range(drow,drow+3):
-                for y in range(dcol,dcol+1):
-    
+                for y in range(dcol,dcol+1):    
                     user_sur_board[x-1][y+1] = ' D |'
         user_board()
     
@@ -227,14 +225,13 @@ while True:
     
     def com_place_des(): #place the destroyer for computer
         while True:
-            print('Computer is placing a/an destroyer')            
-            orientation2 = random.choice(['v','h'])                    
+            print('Computer is placing a/an destroyer')                    
             global cddepth1
             cddepth1=cd_depth
-            
             global com_des_coor
             com_des_coor = []
             
+            orientation2 = random.choice(['v','h'])
             if orientation2 == 'h':
                 cs_row, cs_col, cs_depth =random.randint(1,8), random.randint(1,6), 1 #can only place destroyer on the surface
                 for x in range(cd_row,cd_row+1):
