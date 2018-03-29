@@ -188,7 +188,7 @@ while True:
         global com_und_sub_coor
         global cdep
         global cusub
-        cdep = cs_depth
+
         com_sur_sub_coor = [] #computer surface submarine coordinates
         com_und_sub_coor = [] #computer underwater submarine coordinates
         
@@ -219,15 +219,15 @@ while True:
         print(com_sur_sub_coor)
         print(cs_row, cs_col, cs_depth,orientation1)
            
-            
-           
+        cdep = cs_depth    
+   
     # In[12]:
     
     def com_place_des(): #place the destroyer for computer
         while True:
             print('Computer is placing a/an destroyer')                    
             global cddepth1
-            cddepth1=cd_depth
+            cddepth1=cd_depth # can't do it here without value of cd_depth defined
             global com_des_coor
             com_des_coor = []
             
@@ -586,33 +586,7 @@ while True:
                print(" Sorry! The attack centering area" ,hrow1,hcol1,hdep, "was a total miss" )
 
     
-#%%
-     #code for check coordinates
-    
-            ## Don't delete ##
-    
-    # 1 user vessels
-    print('\n','user vessels')
-    print('sur_sub_coor: ',sur_sub_coor)
-    print('und_sub_coor: ',und_sub_coor)
-    print('des_coor: ',des_coor,'\n') 
-    
-    # 2 
-    print('computer vessels')
-    print('com_sur_sub_coor: ',com_sur_sub_coor)
-    print('com_und_sub_coor: ',com_und_sub_coor)
-    print('com_des_coor: ',com_des_coor,'\n') 
-    
-    # 3
-    print('user hit coordinates')
-    print('sur_hit_coor: ',sur_hit_coor)
-    print('und_hit_coor: ',und_hit_coor,'\n')
-    
-    # 4
-    print('computer hit coordinates')
-    print('com_sur_hit_coor: ',com_sur_hit_coor)
-    print('com_und_hit_coor: ',com_und_hit_coor,'\n')
-    
+
     #%% 
         
     def update_coor(vessel_coor, hit_coor):
@@ -703,7 +677,33 @@ while True:
             
         
         
-        
+     #%%
+     #code for check coordinates
+    
+            ## Don't delete ##
+    
+    # 1 user vessels
+    print('\n','user vessels')
+    print('sur_sub_coor: ',sur_sub_coor)
+    print('und_sub_coor: ',und_sub_coor)
+    print('des_coor: ',des_coor,'\n') 
+    
+    # 2 
+    print('computer vessels')
+    print('com_sur_sub_coor: ',com_sur_sub_coor)
+    print('com_und_sub_coor: ',com_und_sub_coor)
+    print('com_des_coor: ',com_des_coor,'\n') 
+    
+    # 3
+    print('user hit coordinates')
+    print('sur_hit_coor: ',sur_hit_coor)
+    print('und_hit_coor: ',und_hit_coor,'\n')
+    
+    # 4
+    print('computer hit coordinates')
+    print('com_sur_hit_coor: ',com_sur_hit_coor)
+    print('com_und_hit_coor: ',com_und_hit_coor,'\n')
+       
         
         
         
