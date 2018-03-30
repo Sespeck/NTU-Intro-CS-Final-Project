@@ -47,17 +47,38 @@ while True:
             print("   -------------------------------")   
     
     #%%
-    
-    
     def place_sub(): #place a submarine by user
         
         while True:
             print('Welcome to Battleship+')
-            print(f'Placing a/an SUBMARINE')
+            print('Placing a/an SUBMARINE')
             print('Please enter coordinates following this format (row,col,depth). E.g. 3,4,1 (row = 3, col = 4, and depth =1).')
             print('Note: depth = 0 represents the subsea layer, and depth = 1 represents the surface level.')
-            srow, scol, sdepth = [int(x) for x in input("Enter coordinates: ").split(",")]
-            orientation = input('vertical or horientationzontal (v,h)? ')
+            while True:
+                try:
+                    srow, scol, sdepth = [int(x) for x in input("Enter coordinates: ").split(",")]
+                    if not ((0<srow <9) and (0<scol <9)) :
+                        print('Cannot place a ship there. \nPlease take a look at the board and try again.')
+                        user_board()
+                        continue
+                    if not (0<= sdepth <2):
+                        print('Please enter a valid value: 0 for subsea layer, 1 for surface level.')
+                        continue
+                except ValueError:
+                    print("Sorry, I didn't understand your coordinate input.")
+                    continue
+                else:
+                    break
+            
+            while True:
+                orientation = input('vertical or horientationzontal (v,h)? ')
+                if orientation in ['v','h']:
+                    break
+                else:
+                    print('I didn\'t understand your orientation input.')
+                    continue
+
+            print()
     
             global sur_sub_coor
             global und_sub_coor
@@ -65,13 +86,6 @@ while True:
             s_dep = sdepth
             sur_sub_coor = []
             und_sub_coor = []
-    
-            
-           
-            if not srow <9 and scol <9:
-                print('Cannot place a ship there. \nPlease take a look at the board and try again.')
-                input('Press Enter to continue')
-                continue
         
             if orientation =='h':
                 if scol<7:
@@ -85,12 +99,13 @@ while True:
                             for y in range(scol,(scol+3)):
                                 user_und_board[x-1][y+1] = ' S |'
                                 sur_sub_coor.append([x,y])
+                    break
                 else: 
                     print('Cannot place a ship there. \nPlease take a look at the board and try again.')
                     input('Press Enter to continue')
                     continue
 
-            if orientation == 'v':
+            else:
                 if srow<7:
                     if sdepth == 1:
                         for x in range(srow,srow+3):
@@ -102,18 +117,12 @@ while True:
                             for y in range(scol,scol+1):
                                 user_und_board[x-1][y+1] = ' S |'
                                 und_sub_coor.append([x,y])
+                    break
                 else:  
                     print('Cannot place a ship thereee. \nPlease take a look at the board and try again.')
                     input('Press Enter to continue')
                     continue
 
-            break
-           
-    
-        #print(sur_sub_coor) # Do we need to print coodinates here?
-        #print(und_sub_coor)
-    
-    
     # In[7]:
     
     
@@ -124,45 +133,62 @@ while True:
             print('Please enter coordinates following this format (row,col,depth). E.g. 3,4,1 (row = 3, col = 4, and depth =1).\n Note:\
                 Destroyer can only be placed at surface level')
             print('Note: depth = 0 represents the subsea layer, and depth = 1 represents the surface level.')
-    
-            drow, dcol, ddepth = [int(x) for x in input("Enter coordinates: ").split(",")]
-            global d_depth
+            
+            while True:
+                try:
+                    drow, dcol, ddepth = [int(x) for x in input("Enter coordinates: ").split(",")]
+                    if not ((0<drow <9) and (0<dcol <9)) :
+                        print('Cannot place a ship there. \nPlease take a look at the board and try again.')
+                        user_board()
+                        continue
+                    if ddepth != 1:
+                        print('Please enter a valid value: 1 for surface level.')
+                        continue
+                except ValueError:
+                    print("Sorry, I didn't understand your coordinate input.")
+                    continue
+                else:
+                    break
+            
+            while True:
+                orientation = input('vertical or horientationzontal (v,h)? ')
+                if orientation in ['v','h']:
+                    break
+                else:
+                    print('I didn\'t understand your orientation input.')
+                    continue
+
+            print()
+            global d_depth # Used for hit functions        
             d_depth=ddepth
-            orientation = input('vertical or horientationzontal (v,h)? ')
             global des_coor 
             des_coor = []
+        
             
-            if ddepth ==1:
-                if drow<7 and dcol<9:
-                    if orientation == 'v':
-                        for x in range(drow,drow+3):
-                            for y in range(dcol,dcol+1):
-                                des_coor.append([x,y])
-                    else: 
-                        print('Cannot place a destroyer there. \nPlease take a look at the board and try again')
-                        input('Press Enter to continue')
-                        continue
-                elif drow<9 and dcol<7:
-                    if orientation == 'h':
-                        for x in range(drow,drow+1):
-                            for y in range(dcol,(dcol+3)):                                
-                                des_coor.append([x,y])
-                    else: 
-                        print('Cannot place a destroyer there. \nPlease take a look at the board and try again')
-                        input('Press Enter to continue')
-                        continue
-            else:
-                print('Cannot place a destroyer there. \nPlease take a look at the board and try again')
-                input('Press Enter to continue')
-                continue
-            
+            # following code deals with the validity of destroyer's coordinate and place the destroyer accordingky on the bvoard.
+            if drow<7 and dcol<9: 
+                if orientation == 'v': #only if ship lies vertically, are the coordinates accepted
+                    for x in range(drow,drow+3):
+                        for y in range(dcol,dcol+1):
+                            des_coor.append([x,y])
+                else: 
+                    print('Cannot place a destroyer there. \nPlease take a look at the board and try again')
+                    input('Press Enter to continue')
+                    continue
+            elif drow<9 and dcol<7:
+                if orientation == 'h':
+                    for x in range(drow,drow+1):
+                        for y in range(dcol,(dcol+3)):                                
+                            des_coor.append([x,y])
+                else: 
+                    print('Cannot place a destroyer there. \nPlease take a look at the board and try again')
+                    input('Press Enter to continue')
+                    continue
+
             if not (any(x in des_coor for x in sur_sub_coor) == False):
                 print('Cannot place a destroyer there. \nPlease take a look at the board and try again. \nHit ENTER to continue')
                 continue
-            
-                                         
             else:
-              
                 break
         #after checking that the coordinates are valid we print the destroyers on the board
         if orientation == 'h':
@@ -174,6 +200,7 @@ while True:
             for x in range(drow,drow+3):
                 for y in range(dcol,dcol+1):    
                     user_sur_board[x-1][y+1] = ' D |'
+        
         user_board()
     
     
@@ -194,6 +221,7 @@ while True:
         
         print('Computer is placing a/an submarine')      
         orientation1 = random.choice(['v','h'])    
+        
         if orientation1 == 'h':
             cs_row, cs_col, cs_depth =random.randint(1,8), random.randint(1,6), random.randint(0,1)
             if cs_depth == 1:
@@ -204,6 +232,7 @@ while True:
                 for x in range(cs_row,cs_row+1):
                     for y in range(cs_col,(cs_col+3)):
                         com_und_sub_coor.append([x,y])
+                
         elif orientation1 == 'v':
             cs_row, cs_col, cs_depth =random.randint(1,6), random.randint(1,8), random.randint(0,1)
             if cs_depth == 1:
@@ -214,11 +243,8 @@ while True:
                 for x in range(cs_row,cs_row+3):
                     for y in range(cs_col,cs_col+1):            
                         com_und_sub_coor.append([x,y])
-        print(com_und_sub_coor)
+
         cusub = com_und_sub_coor
-        print(com_sur_sub_coor)
-        print(cs_row, cs_col, cs_depth,orientation1)
-           
         cdep = cs_depth    
    
     # In[12]:
@@ -227,25 +253,24 @@ while True:
         while True:
             print('Computer is placing a/an destroyer')                    
             global cddepth1
-            cddepth1=cd_depth # can't do it here without value of cd_depth defined
+
             global com_des_coor
             com_des_coor = []
             
             orientation2 = random.choice(['v','h'])
             if orientation2 == 'h':
-                cs_row, cs_col, cs_depth =random.randint(1,8), random.randint(1,6), 1 #can only place destroyer on the surface
+                cd_row, cd_col, cd_depth =random.randint(1,8), random.randint(1,6), 1 #can only place destroyer on the surface
                 for x in range(cd_row,cd_row+1):
                     for y in range(cd_col,(cd_col+3)):
                         com_des_coor.append([x,y])    
                         
             if orientation2 == 'v' :
-                cs_row, cs_col, cs_depth =random.randint(1,6), random.randint(1,8), 1 #can only place destroyer on the surface
+                cd_row, cd_col, cd_depth=random.randint(1,6), random.randint(1,8), 1 #can only place destroyer on the surface
                 for x in range(cd_row,cd_row+3):
                     for y in range(cd_col,cd_col+1):
                         com_des_coor.append([x,y])
-            print(com_des_coor)
-            print(cd_row, cd_col, cd_depth,orientation2)
-            
+                        
+            cddepth1=cd_depth
                
             
             if not (any(x in com_des_coor for x in com_sur_sub_coor) == False):
@@ -255,14 +280,10 @@ while True:
                 continue
             
                                          
-            else:  #?????? Use pass?
-            #we're happy with the value given.
-            #we're ready to exit the loop.
-            
-                
+            else: 
                 break
                 
-        
+        computer_board()         
         print('Game Start!!!')           
         
         
@@ -274,12 +295,13 @@ while True:
     #hit coordinates
     
     def hit():
-
+        print('Now it\'s user\'s turn to hit computer\'s ships.')
         computer_board() # Print User's board
         
-        print('Please enter coordinates following this format (row,col,depth). E.g. 3,4,1 (row = 3, col = 4, and depth =1).')
+        print('Please enter hit coordinates following this format (row,col,depth). E.g. 3,4,1 (row = 3, col = 4, and depth =1).')
         print('Note: depth = 0 represents the subsea layer, and depth = 1 represents the surface level.')
         hrow, hcol, hdepth = [int(x) for x in input("Enter coordinates: ").split(",")]
+        print("\nUser's attack centered at location", '(',hrow, hcol, hdepth,')')
         global sur_hit_coor
         global und_hit_coor
         global hdep
@@ -323,7 +345,7 @@ while True:
                         for y in range(8,10):
                             com_sur_board[x][y] = ' * |'
                             sur_hit_coor.append([x+1,y-1])
-                elif hcol in range(2,8)): #on the lower row edges but not corner
+                elif hcol in range(2,8): #on the lower row edges but not corner
                     for x in range(hrow -2, hrow):
                         for y in range(hcol, hcol+3):
                             com_sur_board[x][y] = ' * |'
@@ -357,7 +379,7 @@ while True:
                         for y in range(8,10):
                             com_und_board[x][y] = ' * |'
                             und_hit_coor.append([x+1,y-1])
-                elif hcol in range(2,8)): # upper edge
+                elif hcol in range(2,8): # upper edge
                     for x in range(hrow - 1, hrow +1 ):
                         for y in range(hcol, hcol+3):
                             com_sur_board[x][y] = ' * |'
@@ -373,7 +395,7 @@ while True:
                         for y in range(8,10):
                             com_und_board[x][y] = ' * |'
                             und_hit_coor.append([x+1,y-1])           
-                elif hcol in range(2,8)): #lower edge
+                elif hcol in range(2,8): #lower edge
                     for x in range(hrow -2, hrow):
                         for y in range(hcol, hcol+3):
                             com_und_board[x][y] = ' * |'
@@ -432,12 +454,16 @@ while True:
         
         elif (cdep ==0 and hdep == 1) or (cdep == 1 and hdep == 0 ):
                print(" Sorry! The attack centering area" ,hrow1,hcol1,hdep, "was a total miss" )
+        # It can't work for a lot more situations
 
         computer_board()
        
     
     #%%
     def com_hit():
+        
+        print('Now it\'s computer\'s turn to hit user\'s ships.')
+       
        
         c_hrow, c_hcol, c_hdepth = 3,4,1  #?????
         global com_sur_hit_coor
@@ -585,7 +611,7 @@ while True:
         elif (cdep ==0 and s_dep == 1) or (cdep == 1 and s_dep == 0 ):
                print(" Sorry! The attack centering area" ,hrow1,hcol1,hdep, "was a total miss" )
 
-    
+        user_board()
 
     #%% 
         
