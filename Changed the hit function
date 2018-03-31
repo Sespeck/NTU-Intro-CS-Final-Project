@@ -233,13 +233,13 @@ while True:
                 cd_row, cd_col, cd_depth=random.randint(1,6), random.randint(1,8), 1 #can only place destroyer on the surface
                 com_des_coor = [[x,y] for x in range(cd_row,cd_row+3) for y in range(cd_col,cd_col+1)]               
             
-            if not (any(x in com_des_coor for x in com_sur_sub_coor) == False):
+            if any(x in com_des_coor for x in com_sur_sub_coor): #clear the destroyer coordinates in the list and for new one if it overlap with submarine
                 com_des_coor.clear()
                 continue
             else: 
                 break
     computer_board()
-    print('Computer placed ship')
+    print('Computer finish placing ships')
     print('GAME START!!')
     
         #%%
@@ -275,10 +275,10 @@ while True:
         #here we go through a 3x3 area around the hit area  
         #if the coordinates hit are same as coordinates of ship, we print a $ sign there
         #after that we delete that coordinate out of the ship coordinate list 
-        for x in range(hrow-2,hrow+1):  #we go through a 3x3 area around the hit area                                       
+        for x in range(hrow-2,hrow+1):                                     
             for y in range(hcol,hcol+3):
                 if not (x in range(0,9) and y in range(0,9)):
-                    pass #if either row/column coordinate is smaller/larger than 0/9, we pass
+                    pass #if either row or column coordinate is smaller/larger than 0/9, we pass
                 else:
                     if hdepth ==1:
                         sur_hit_coor.append([x+1,y-1]) 
