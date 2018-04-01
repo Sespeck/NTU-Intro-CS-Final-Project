@@ -346,7 +346,7 @@ def com_hit():
                         hit_message('User')
                         des_coor.remove([x+1,y-1])
                     else:
-                        if user_sur_board[x][y] == ' $ |':
+                        if user_sur_board[x][y] == ' $ |': #this is so it doesn't change the $ sign of the sunk ship
                             pass                           
                         elif user_sur_board[x][y] != ' $ |':
                             user_sur_board[x][y]= ' * |'
@@ -388,7 +388,7 @@ while True:
     while True:
         hit()# User attack
         print('Look at your attack on the board')
-        input('Press Enter for computer\'s turn to attack')
+        input('Press Enter to end your turn')
         # Calculate result for computer
         if (com_sur_sub_coor == []) and (com_und_sub_coor ==[]):
             print('Computer\'s submarine sunk.')
@@ -404,7 +404,7 @@ while True:
         
         com_hit() # Computer attack
         print('Look at computer\'s attack on the board')
-        input('Press Enter for your turn to attack')
+        input('Press Enter to end computer\'s turn')
         # Calculate result for user
         if (sur_sub_coor == []) and (und_sub_coor ==[]):
             print('User\'s submarine sunk.')
