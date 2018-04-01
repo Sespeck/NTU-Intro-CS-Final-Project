@@ -192,11 +192,6 @@ def place_des():
         for x in range(drow,drow+3):
             for y in range(dcol,dcol+1):    
                 user_sur_board[x-1][y+1] = ' D |'
-    
-    
-
-
-
 # In[11]:  
 def com_place_sub(): #computer places a submarine   
     global com_sur_sub_coor
@@ -239,8 +234,6 @@ def com_place_des(): #place the destroyer for computer
             continue
         else: 
             break
-    
-
     #%%
 def hit_message(x): #so that the ship sunk message doesn't show every time a ship is hit
         global printed
@@ -251,10 +244,6 @@ def hit_message(x): #so that the ship sunk message doesn't show every time a shi
             printed = True
             #%%
 def hit():
-    global com_sur_board  # visual elements for user and computer board are kept in a list variable
-    global com_und_board
-    global user_sur_board
-    global user_und_board
     global sur_hit_coor 
     global und_hit_coor
     global com_des_coor
@@ -288,7 +277,7 @@ def hit():
         else:
             break
     printed = False
-    
+    #hitting strategy
     #we go through a 3x3 area around the hit area, if either row/column coordinate is smaller/larger than 0/9, we pass
     #if it is within 1 to 8, we print a * |
     #if the area of the hit coordinate is the same as ship's coordinate, we print a $
@@ -327,22 +316,12 @@ def hit():
                             com_und_board[x][y]= ' * |'
     if printed == False:
         print("The hit at location",'(',hrow, hcol, hdepth,') was a total miss lol')
-        
-                        
-    print(com_sur_sub_coor)
-    print(sur_hit_coor)
-    print(com_des_coor)
-    print(com_und_sub_coor)
-                        
     computer_board()
 
 
 #%%
 def com_hit():
-    
-    print('Now it\'s computer\'s turn to hit user\'s ships.')
-   
-   
+    print('Now it\'s computer\'s turn to hit user\'s ships.') 
     hrow, hcol, hdepth = random.randint(1,8),random.randint(1,8),random.randint(0,1) 
     global com_sur_hit_coor
     global com_und_hit_coor
@@ -401,14 +380,15 @@ while True:
     print('Computer placed ship')
     print('GAME START!!')
     
-    user_sub_sunk = 0
+    user_sub_sunk = 0 #these 4 are for preventing repetition of the printing of ships sunk
     user_des_sunk = 0
     com_sub_sunk = 0
     com_des_sunk =0
     
-    
     while True:
-        hit() # User attack
+        hit()# User attack
+        print('Look at your attack on the board')
+        input('Press Enter for computer\'s turn to attack')
         # Calculate result for computer
         if (com_sur_sub_coor == []) and (com_und_sub_coor ==[]):
             print('Computer\'s submarine sunk.')
@@ -423,6 +403,8 @@ while True:
             pass
         
         com_hit() # Computer attack
+        print('Look at computer\'s attack on the board')
+        input('Press Enter for your turn to attack')
         # Calculate result for user
         if (sur_sub_coor == []) and (und_sub_coor ==[]):
             print('User\'s submarine sunk.')
@@ -436,14 +418,13 @@ while True:
         else: 
             continue
     
-    while True:
+    while True: #asking user's choice to continue playing or not
         game = input('Do you want to play again? Enter Y for yes or N for no: ')
         if game in ('Y','N'):
             break
         else: 
             print('Sorry, I don\'t understand your instructions.\n')
-            continue
-        
+            continue 
     if game == 'Y':
         continue
     else:
