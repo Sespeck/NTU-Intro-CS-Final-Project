@@ -1,6 +1,6 @@
 #%%
 
-### IMPORT PACHAGES ###
+### IMPORT PACKAGES ###
 import random
 
 #%%
