@@ -300,8 +300,8 @@ def hit():
         try:
             hrow, hcol, hdepth = [int(x) for x in input("Enter your hit coordinates: ").split(",")]
             if not ((0<hrow <9) and (0<hcol <9)):
-                 print('Input row and column must be an integer from 1 to 8.') 
-                 continue
+                print('Input row and column must be an integer from 1 to 8.') 
+                continue
             else:
                 if (hdepth in (0,1) == 'False'):
                     print('Depth must be 0 or 1.')  
