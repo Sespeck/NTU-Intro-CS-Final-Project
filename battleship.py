@@ -359,6 +359,7 @@ def hit():
 #%%
 def com_hit():
     print('Now it\'s computer\'s turn to hit user\'s ships.') 
+    global hrow, hcol, hdepth
     hrow, hcol, hdepth = random.randint(1,8),random.randint(1,8),random.randint(0,1) 
     global com_sur_hit_coor
     global com_und_hit_coor
