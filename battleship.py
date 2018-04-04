@@ -1,10 +1,3 @@
-    # -*- coding: utf-8 -*-
-"""
-Created on Fri Mar 30 17:59:01 2018
-
-@author: My|
-"""
-    
 #%%
    # Import packages
 import random
