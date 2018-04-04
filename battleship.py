@@ -272,7 +272,8 @@ def com_place_des():
         else: 
             break
     #%%
-def hit_message(x): #so that the ship sunk message doesn't show every time a ship is hit
+### MESSAGE SHOWN WHENEVER A SHIP ON EITHER SIDE IS HIT ###
+def hit_message(x): 
         global printed
         if printed == True:
             pass
@@ -280,12 +281,13 @@ def hit_message(x): #so that the ship sunk message doesn't show every time a shi
             print('The '+ x +'\'s ship was hit at location','(',hrow, hcol, hdepth,')')
             printed = True
             #%%
+### USER'S ATTACK TURN ###
 def hit():
-    global sur_hit_coor 
-    global und_hit_coor
-    global com_des_coor
-    global com_und_sub_coor
-    global com_sur_sub_coor
+    global sur_hit_coor #this variables is for the prog to record which coordinates are hit on the surface
+    global und_hit_coor #this variables is for the prog to record which coordinates are hit underwater
+    global com_des_coor #this variable is the coordinates of the computer's destroyer
+    global com_und_sub_coor #this variable is the coordinates of the computer's submarine if it is placed underwater
+    global com_sur_sub_coor #this variable is the coordinates of the computer's submarine if it is placed on the surface
     global hrow #these 4 are for the hit_message()
     global hcol
     global hdepth
@@ -296,7 +298,8 @@ def hit():
     computer_board()           
     print('Please enter hit coordinates following this format (row,col,depth). E.g. 3,4,1 (row = 3, col = 4, and depth =1).')
     print('Note: depth = 0 represents the subsea layer, and depth = 1 represents the surface level.')
-    while True: #this block is to deal with error input
+    ### THIS BLOCK OF CODE DEALS WITH INPUTING THE HIT COORDINATES AND INVALID INPUTS ###
+    while True: 
         try:
             hrow, hcol, hdepth = [int(x) for x in input("Enter your hit coordinates: ").split(",")]
             if not ((0<hrow <9) and (0<hcol <9)):
@@ -357,6 +360,7 @@ def hit():
 
 
 #%%
+### COMPUTER'S ATTACK TURN ###
 def com_hit():
     print('Now it\'s computer\'s turn to hit user\'s ships.') 
     global hrow, hcol, hdepth
@@ -367,7 +371,10 @@ def com_hit():
     com_und_hit_coor = []
     global printed
     printed = 0
-    
+    #hitting strategy
+    #we go through a 3x3 area around the hit area, if either row/column coordinate is smaller/larger than 0/9, we pass
+    #if it is within 1 to 8, we print a * |
+    #if the area of the hit coordinate is the same as ship's coordinate, we print a $
     for x in range(hrow-2,hrow+1): 
         for y in range(hcol,hcol+3):
             if not (x in range(0,8) and y in range(2,10)):
@@ -399,7 +406,7 @@ def com_hit():
                             pass 
                         elif user_und_board[x][y] != ' $ |':
                             user_und_board[x][y]= ' * |'
-                        
+    #if none of the ships are hit, this message will be shown                    
     if printed == False:
         print("The hit at location",'(',hrow, hcol, hdepth,') was a total miss lol')
     user_board()                                
@@ -416,7 +423,6 @@ while True:
     print()
     com_place_sub()
     com_place_des()
-    print('Computer placed ships shown below.')
     computer_board()
     input('Press Enter to start the game.')
     print('GAME START!! \n\n')
@@ -424,7 +430,7 @@ while True:
     user_sub_sunk = 0 #these 4 are for preventing repetition of the printing of ships sunk
     user_des_sunk = 0
     com_sub_sunk = 0
-    com_des_sunk =0
+    com_des_sunk = 0
     
     while True:
         hit()# User attack
