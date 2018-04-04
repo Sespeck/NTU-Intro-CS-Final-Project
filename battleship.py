@@ -70,7 +70,7 @@ def place_sub(): #user places a submarine
         print('Note: depth = 0 represents the subsea layer, and depth = 1 represents the surface level.')
         while True:
             try:
-                srow, scol, sdepth = [int(x) for x in input("Enter coordinates: ").split(",")]
+                srow, scol, sdepth = [int(x) for x in input("Enter coordinates for your submarine: ").split(",")]
                 if not ((0<srow <9) and (0<scol <9)) :
                     print('Cannot place your submarine there. \nPlease take a look at the board and try again.')
                     user_board()
@@ -136,7 +136,7 @@ def place_des():
         print('Note: depth = 0 represents the subsea layer, and depth = 1 represents the surface level.')
         while True:
             try:
-                drow, dcol, ddepth = [int(x) for x in input("Enter coordinates: ").split(",")]
+                drow, dcol, ddepth = [int(x) for x in input("Enter coordinates for your destroyer: ").split(",")]
                 if not ((0<drow <9) and (0<dcol <9)) :
                     print('Cannot place your destroyer there. \nPlease take a look at the board and try again.')
                     user_board()
@@ -254,13 +254,13 @@ def hit():
     global printed
     sur_hit_coor =[]
     und_hit_coor =[]
-    print('Now it\'s USER\'s turn to hit computer\'s ships.')
+    print('It\'s USER\'s turn to hit computer\'s ships.')
     computer_board()           
     print('Please enter hit coordinates following this format (row,col,depth). E.g. 3,4,1 (row = 3, col = 4, and depth =1).')
     print('Note: depth = 0 represents the subsea layer, and depth = 1 represents the surface level.')
     while True: #this block is to deal with error input
         try:
-            hrow, hcol, hdepth = [int(x) for x in input(" Enter your hit coordinates: ").split(",")]
+            hrow, hcol, hdepth = [int(x) for x in input("Enter your hit coordinates: ").split(",")]
             if not ((0<hrow <9) and (0<hcol <9)):
                  print('Input row and column must be an integer from 1 to 8.') 
                  continue
@@ -373,10 +373,12 @@ while True:
     place_des()
     user_board()
     input('Your ships are palced on the board shown above. Press Enter for Computer to place ships.')
+    print()
     com_place_sub()
     com_place_des()
     print('Computer placed ships shown below.')
     computer_board()
+    input('Press Enter to start the game.')
     print('GAME START!! \n\n')
     
     user_sub_sunk = 0 #these 4 are for preventing repetition of the printing of ships sunk
