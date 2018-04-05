@@ -18,7 +18,7 @@ def set_board():
     user_sur_board =[]
     user_und_board =[]
     
-    # building board using sting characters stored in the list variables
+    # building board using string characters stored in the list variables
     for i in range(1,9):
         com_und_board.append([str(i)," ","   |","   |","   |","   |","   |","   |","   |","   |"])
         com_sur_board.append([str(i)," ","   |","   |","   |","   |","   |","   |","   |","   |"])
@@ -87,7 +87,6 @@ def place_sub():
                     print('Cannot place your submarine there. \nPlease take a look at the board and try again.')
                     user_board()
                     continue 
-                    
                 if not (0<= sdepth <2):  # delimit the two layers
                     print('Please enter a valid value: 0 for subsea layer, 1 for surface level.')
                     continue
@@ -109,8 +108,6 @@ def place_sub():
                 print('I didn\'t understand your orientation input.')
                 continue
         print()
-        
-    
         # check if the submarine is placed within the board and show 'S' for submarine on the user board
         if orientation =='h':  
             if scol<7:
@@ -211,7 +208,7 @@ def place_des():
         else:
             break
         
-    # print 'D' for the destroyer on user's board
+    # print 'D' for the destroyer on user's board after all conditions have been met
     if orientation == 'h':
         for x in range(drow,drow+1):
             for y in range(dcol,dcol+3):    
@@ -283,11 +280,11 @@ def hit_message(x):
             #%%
 ### USER'S ATTACK TURN ###
 def hit():
-    global sur_hit_coor #this variables is for the prog to record which coordinates are hit on the surface
-    global und_hit_coor #this variables is for the prog to record which coordinates are hit underwater
-    global com_des_coor #this variable is the coordinates of the computer's destroyer
-    global com_und_sub_coor #this variable is the coordinates of the computer's submarine if it is placed underwater
-    global com_sur_sub_coor #this variable is the coordinates of the computer's submarine if it is placed on the surface
+    global sur_hit_coor # coordinates of the surface hits
+    global und_hit_coor # coordinates of the underwater hits 
+    global com_des_coor # coordinates of the computer's destroyer
+    global com_und_sub_coor # coordinates of the computer's submarine placed underwater
+    global com_sur_sub_coor # coordinates of the computer's submarine placed on the surface
     global hrow #these 4 are for the hit_message()
     global hcol
     global hdepth
@@ -317,10 +314,10 @@ def hit():
         else:
             break
     printed = False
-    #hitting strategy
+    ### HITTING STRATEGY ###
     #we go through a 3x3 area around the hit area, if either row/column coordinate is smaller/larger than 0/9, we pass
     #if it is within 1 to 8, we print a * |
-    #if the area of the hit coordinate is the same as ship's coordinate, we print a $
+    #if the area of the hit coordinate is the same as ship's coordinate, we print a $ and display hit messages
 
     for x in range(hrow-2,hrow+1):                                         
         for y in range(hcol,hcol+3):
@@ -371,10 +368,11 @@ def com_hit():
     com_und_hit_coor = []
     global printed
     printed = 0
-    #hitting strategy
+    ### HITTING STRATEGY ### (same as user's)
     #we go through a 3x3 area around the hit area, if either row/column coordinate is smaller/larger than 0/9, we pass
     #if it is within 1 to 8, we print a * |
-    #if the area of the hit coordinate is the same as ship's coordinate, we print a $
+    #if the area of the hit coordinate is the same as ship's coordinate, we print a $ and display hit messages
+
     for x in range(hrow-2,hrow+1): 
         for y in range(hcol,hcol+3):
             if not (x in range(0,8) and y in range(2,10)):
@@ -390,18 +388,18 @@ def com_hit():
                         user_sur_board[x][y] = ' $ |'
                         hit_message('User')
                         des_coor.remove([x+1,y-1])
-                    else:
+                    else: #if the hit coordinates is not the same as any surface ships
                         if user_sur_board[x][y] == ' $ |': #this is so it doesn't change the $ sign of the sunk ship
                             pass                           
                         elif user_sur_board[x][y] != ' $ |':
                             user_sur_board[x][y]= ' * |'
-                elif hdepth ==0:
+                elif hdepth == 0:
                     com_und_hit_coor.append([x+1,y-1])
                     if any (x in com_und_hit_coor for x in und_sub_coor):
                         user_und_board[x][y] = ' $ |'
                         hit_message('User')
                         und_sub_coor.remove([x+1,y-1])
-                    else:
+                    else: # if the hit coordinates is not the same as any underwater ships
                         if user_und_board[x][y] == ' $ |':
                             pass 
                         elif user_und_board[x][y] != ' $ |':
